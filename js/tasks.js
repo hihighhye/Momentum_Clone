@@ -1,110 +1,109 @@
-const tasksBtn = document.getElementById("tasks-button");
-const rside = document.querySelector("div.right-side");
-const toDoForm = document.getElementById("todo-form");
-const toDoInput = document.getElementById("todo-input");
-const toDoFieldset = document.getElementById("todo-fieldset");
+export function initTasks({
+    tasksBtn,
+    rside,
+    toDoForm,
+    toDoInput,
+    toDoFieldset
+}, HIDDEN_CLASSNAME, CHECKED_CLASSNAME, TASKS_KEY) {
+    let tasks = [];
 
-const TASKS_KEY = "tasks";
+    function onClickTasksBtn() {
+        rside.classList.toggle(HIDDEN_CLASSNAME);
+    } 
 
-let tasks = [];
-
-
-function onClickTasksBtn() {
-    rside.classList.toggle(HIDDEN_CLASSNAME);
-} 
-
-function onClickCheckbox(event) {
-    const label = event.target.nextElementSibling;
-    if (event.target.checked) {
-        label.classList.add("checked");
-    }
-    else {
-        label.classList.remove("checked");
-    }
-
-    checkedTaskId = parseInt(event.target.id.slice(1));
-    tasks.forEach(task => {
-        if (task.id === checkedTaskId) {
-            task.isChecked = !task.isChecked;
+    function onClickCheckbox(event) {
+        const label = event.target.nextElementSibling;
+        if (event.target.checked) {
+            label.classList.add(CHECKED_CLASSNAME);
         }
-    });
-    saveTasks();
-}
+        else {
+            label.classList.remove(CHECKED_CLASSNAME);
+        }
 
-function handleTaskSubmit(event) {
-    event.preventDefault();
-    const newTask = toDoInput.value;
-    toDoInput.value = "";
+        checkedTaskId = parseInt(event.target.id.slice(1));
+        tasks.forEach(task => {
+            if (task.id === checkedTaskId) {
+                task.isChecked = !task.isChecked;
+            }
+        });
+        saveTasks();
+    }
 
-    const newTaskObj = {
-        "task": newTask, 
-        "id": Date.now(),
-        "isChecked": false
-    };
-    tasks.push(newTaskObj);
-    paintTask(newTaskObj);
-    saveTasks();
-}
+    function handleTaskSubmit(event) {
+        event.preventDefault();
+        const newTask = toDoInput.value;
+        toDoInput.value = "";
 
-function paintTask(newTaskObj) {
-    const div = document.createElement("div");
-    div.id = "d" + String(newTaskObj.id);
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.id = "c" + String(newTaskObj.id);
-    checkbox.value = newTaskObj.task;
-    checkbox.addEventListener("click", onClickCheckbox);
+        const newTaskObj = {
+            "task": newTask, 
+            "id": Date.now(),
+            "isChecked": false
+        };
+        tasks.push(newTaskObj);
+        paintTask(newTaskObj);
+        saveTasks();
+    }
 
-    const label = document.createElement("label");
-    label.innerText = newTaskObj.task;
+    function paintTask(newTaskObj) {
+        const div = document.createElement("div");
+        div.id = "d" + String(newTaskObj.id);
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = "c" + String(newTaskObj.id);
+        checkbox.value = newTaskObj.task;
+        checkbox.addEventListener("click", onClickCheckbox);
 
-    if (newTaskObj.isChecked) {
-        checkbox.checked = true;
-        label.classList.add("checked");
-    };
+        const label = document.createElement("label");
+        label.innerText = newTaskObj.task;
 
-    const btn = document.createElement("button");
-    btn.id = String(newTaskObj.id);
-    const btnImg = document.createElement("img");
-    btnImg.src = "images/delete-2.png";
-    btnImg.alt = "del-btn";
-    btnImg.title = "delete";
+        if (newTaskObj.isChecked) {
+            checkbox.checked = true;
+            label.classList.add(CHECKED_CLASSNAME);
+        };
 
-    btnImg.classList.add("btnIcon-small");
-    btn.classList.add("btn");
-    btn.appendChild(btnImg);
-    btn.addEventListener("click", deleteTask);
+        const btn = document.createElement("button");
+        btn.id = String(newTaskObj.id);
+        const btnImg = document.createElement("img");
+        btnImg.src = "images/delete-2.png";
+        btnImg.alt = "del-btn";
+        btnImg.title = "delete";
 
-    div.appendChild(checkbox);
-    div.appendChild(label);
-    div.appendChild(btn);
-    toDoFieldset.appendChild(div);
-}
+        btnImg.classList.add("btnIcon-small");
+        btn.classList.add("btn");
+        btn.appendChild(btnImg);
+        btn.addEventListener("click", deleteTask);
 
-function deleteTask(event) {
-    const btn = event.target.parentElement;
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        div.appendChild(btn);
+        toDoFieldset.appendChild(div);
+    }
 
-    const div = document.querySelector(`div#d${btn.id}`);
-    div.remove();
-    tasks = tasks.filter(task => task.id !== parseInt(btn.id));
+    function deleteTask(event) {
+        const btn = event.target.parentElement;
 
-    saveTasks();
-}
+        const div = document.querySelector(`div#d${btn.id}`);
+        div.remove();
+        tasks = tasks.filter(task => task.id !== parseInt(btn.id));
 
-function saveTasks() {
-    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
-}
+        saveTasks();
+    }
+
+    function saveTasks() {
+        localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+    }
 
 
-tasksBtn.addEventListener("click", onClickTasksBtn);
-toDoForm.addEventListener("submit", handleTaskSubmit);
+    tasksBtn.addEventListener("click", onClickTasksBtn);
+    toDoForm.addEventListener("submit", handleTaskSubmit);
 
-const savedTasks = localStorage.getItem(TASKS_KEY);
+    const savedTasks = localStorage.getItem(TASKS_KEY);
 
-if (savedTasks) {
-    const parsedTasks = JSON.parse(savedTasks);
-    tasks = parsedTasks;
-    parsedTasks.forEach(task => {
-        paintTask(task)
-    });
+    if (savedTasks) {
+        const parsedTasks = JSON.parse(savedTasks);
+        tasks = parsedTasks;
+        parsedTasks.forEach(task => {
+            paintTask(task)
+        });
+    }
 }
