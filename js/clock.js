@@ -1,16 +1,17 @@
-const clock = document.querySelector("h1#clock");
-const dateField = document.querySelector("#date-container span")
+import { resetFocusedToday } from "./pomodoro.js";
 
-const dayDict = {1: "Mon", 2: "Tue", 3: "Wed", 4: "Thu", 5: "Fri", 6: "Sat", 0: "Sun"};
+const clockElement = document.querySelector("h1#clock");
+const dateElement = document.querySelector("#date-container span");
+
 
 function getClock() {
     const date = new Date();
 
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
+    // const seconds = String(date.getSeconds()).padStart(2, "0");
 
-    clock.innerText = `${hours}:${minutes}`; // :${seconds}
+    clockElement.innerText = `${hours}:${minutes}`; // :${seconds}
 
     if (hours === "00" && minutes === "00") {
         getTodaysDate();
@@ -25,16 +26,15 @@ function getTodaysDate() {
     const dd = String(date.getDate()).padStart(2, "0");
     const day = dayDict[date.getDay()];
 
-    dateField.innerText = `${mm}.${dd} / ${day}`
+    dateElement.innerText = `${mm}.${dd} / ${day}`
 }
 
-function resetFocusedToday() {
-    localStorage.setItem("focused", 0);
-    focusedTime.innerText = `0m`;
-    focusedToday = 0;
-}
+
+const dayDict = {1: "Mon", 2: "Tue", 3: "Wed", 4: "Thu", 5: "Fri", 6: "Sat", 0: "Sun"};
 
 getTodaysDate();
 getClock();
 setInterval(getClock, 1000);
+
+
 

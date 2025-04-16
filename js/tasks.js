@@ -1,13 +1,13 @@
+import { HIDDEN_CLASSNAME, CHECKED_CLASSNAME, TASKS_KEY } from "./SecretKeys.js"
+
 const tasksBtn = document.getElementById("tasks-button");
 const rside = document.querySelector("div.right-side");
 const toDoForm = document.getElementById("todo-form");
 const toDoInput = document.getElementById("todo-input");
 const toDoFieldset = document.getElementById("todo-fieldset");
 
-const TASKS_KEY = "tasks";
 
 let tasks = [];
-
 
 function onClickTasksBtn() {
     rside.classList.toggle(HIDDEN_CLASSNAME);
@@ -16,13 +16,14 @@ function onClickTasksBtn() {
 function onClickCheckbox(event) {
     const label = event.target.nextElementSibling;
     if (event.target.checked) {
-        label.classList.add("checked");
+        label.classList.add(CHECKED_CLASSNAME);
     }
     else {
-        label.classList.remove("checked");
+        label.classList.remove(CHECKED_CLASSNAME);
     }
-
-    checkedTaskId = parseInt(event.target.id.slice(1));
+   
+    const checkedTaskId = parseInt(event.target.id.slice(1));
+   
     tasks.forEach(task => {
         if (task.id === checkedTaskId) {
             task.isChecked = !task.isChecked;
@@ -60,7 +61,7 @@ function paintTask(newTaskObj) {
 
     if (newTaskObj.isChecked) {
         checkbox.checked = true;
-        label.classList.add("checked");
+        label.classList.add(CHECKED_CLASSNAME);
     };
 
     const btn = document.createElement("button");
@@ -108,3 +109,4 @@ if (savedTasks) {
         paintTask(task)
     });
 }
+

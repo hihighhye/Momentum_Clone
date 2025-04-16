@@ -1,4 +1,3 @@
-
 const quotes = [
     {
         quote: "Magic exists. Who can doubt it, when there are rainbows and wildflowers, the music of the wind, and the silence of the stars?",
@@ -42,11 +41,11 @@ const quotes = [
     }
 ];
 
-const quote = document.querySelector("#quote-container span:first-child");
-const author = document.querySelector("#quote-container span:last-child");
-
+const quoteElement = document.querySelector("#quote-container span:first-child");
+const authorElement = document.querySelector("#quote-container span:last-child");
 
 const todaysQuote = quotes[Math.floor(Math.random() * quotes.length)]
 
-quote.innerText = `"${todaysQuote.quote}"`;
-author.innerText = `~ ${todaysQuote.author}`;
+quoteElement.innerText = `"${todaysQuote.quote}"`;
+authorElement.innerText = `~ ${todaysQuote.author}`;
+

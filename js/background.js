@@ -12,11 +12,12 @@ const currentImg = images[Math.floor(Math.random() * images.length)];
 // const bgImage = document.createElement("img");
 // bgImage.url = `images/${todaysImg}`;
 
-bgImagePath = `images/${currentImg}`;
+const bgImagePath = `./images/${currentImg}`;
 
 // document.body.appendChild(bgImage);
+const gridFrameElement = document.querySelector(".grid-frame");
+gridFrameElement.style.background = `url(${bgImagePath}) fixed`;
+gridFrameElement.style.backgroundSize = "cover";
 
-const gridFrame = document.querySelector(".grid-frame");
-gridFrame.style.background = `url(${bgImagePath}) fixed`;
-gridFrame.style.backgroundSize = "cover";
+
 

@@ -1,26 +1,25 @@
+import { HIDDEN_CLASSNAME, TMODE_ACTIVE_CLASSNAME, FOCUSED_KEY } from "./SecretKeys.js"
+
 const pmdrBtn = document.getElementById("pmdr-button");
 const timerForm = document.querySelector("#timer-form");
 const focusBtn = document.getElementById("focus");
 const breakBtn = document.getElementById("break");
 const inputSection = document.getElementById("t-input-section");
-const minInput = inputSection.querySelector("#min-input");
-const secInput = inputSection.querySelector("#sec-input");
 const textSection = document.getElementById("t-text-section");
-const minText = textSection.querySelector("#min-text");
-const secText = textSection.querySelector("#sec-text");
+const minInput = document.querySelector("#min-input");
+const secInput = document.querySelector("#sec-input");
+const minText = document.querySelector("#min-text");
+const secText = document.querySelector("#sec-text");
 const startBtn = document.getElementById("t-start-button");
 const pauseBtn = document.getElementById("t-pause-button");
 const stopBtn = document.getElementById("t-stop-button");
 const focusedTime = document.querySelector("#focused-container span:first-child");
 
-const TMODE_ACTIVE_KEY = "tmode-selected";
-const FOCUSED_KEY = "focused";
 const DEFAULT_FMIN = 25;
 const DEFAULT_FSEC = 0;
 const DEFAULT_BMIN = 5;
 const DEFAULT_BSEC = 0;
 
-let focusedToday = 0;
 let inputMode = true;
 let fMode = true; 
 let leftMin = 0;
@@ -28,6 +27,7 @@ let leftSec = 0;
 let isStopped = false;
 let onCounting = false;
 let intervalID;
+let focusedToday = 0;
 
 
 function onClickPmdrBtn() {
@@ -99,16 +99,16 @@ function onClickStopBtn(event) {
 
 function colorTModeBtn() {
     if (fMode) {
-        focusBtn.classList.add(TMODE_ACTIVE_KEY);
-        breakBtn.classList.remove(TMODE_ACTIVE_KEY);
+        focusBtn.classList.add(TMODE_ACTIVE_CLASSNAME);
+        breakBtn.classList.remove(TMODE_ACTIVE_CLASSNAME);
         minInput.value = DEFAULT_FMIN;
         secInput.value = DEFAULT_FSEC;
         leftMin = DEFAULT_FMIN;
         leftSec = DEFAULT_FSEC;
     }
     else {
-        focusBtn.classList.remove(TMODE_ACTIVE_KEY);
-        breakBtn.classList.add(TMODE_ACTIVE_KEY);
+        focusBtn.classList.remove(TMODE_ACTIVE_CLASSNAME);
+        breakBtn.classList.add(TMODE_ACTIVE_CLASSNAME);
         minInput.value = DEFAULT_BMIN;
         secInput.value = DEFAULT_BSEC;
         leftMin = DEFAULT_BMIN;
@@ -191,4 +191,11 @@ const parsedFocusedTime = parseInt(savedFocusedTime);
 if (parsedFocusedTime) {
     focusedToday = parsedFocusedTime;
     focusedTime.innerText = `${Math.floor(focusedToday / 60)}m`;
+}
+
+
+export function resetFocusedToday() {
+    localStorage.setItem(FOCUSED_KEY, 0);
+    focusedTime.innerText = `0m`;
+    focusedToday = 0;
 }

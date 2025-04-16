@@ -1,11 +1,11 @@
-// const goalForm = document.getElementById("goal-form"); /* greetings.js에 선언. */
-const goalInput = document.getElementById("main-goal"); 
+import { HIDDEN_CLASSNAME, GOAL_KEY } from "./SecretKeys.js"
+
+const goalForm = document.getElementById("goal-form");
+const goalInput = document.getElementById("main-goal");
 const usersGoalContainer = document.getElementById("users-goal-container");
-const usersGoal = usersGoalContainer.querySelector("#users-goal");
+const usersGoal = document.querySelector("#users-goal");
 const deleteBtn = document.querySelector("#delete-button");
 
-
-const GOAL_KEY = "goal";
 
 function paintGoal(goal) {
     usersGoal.innerText = goal;
@@ -31,7 +31,6 @@ function deleteGoal(event) {
 }
 
 
-
 goalForm.addEventListener("submit", handleGoalSubmit);
 
 const savedGoal = localStorage.getItem(GOAL_KEY);
@@ -39,3 +38,5 @@ const savedGoal = localStorage.getItem(GOAL_KEY);
 if (savedGoal) {
     paintGoal(savedGoal);
 }
+
+

@@ -1,15 +1,12 @@
+import { HIDDEN_CLASSNAME, USERNAME_KEY } from "./SecretKeys.js";
+
 const loginForm = document.querySelector("#login-form");
 const continueBtn = document.querySelector("#continueBtn");
 const loginInput = document.querySelector("#name-field");
 const welcomeText = document.querySelector("#greeting");
-const goalForm = document.querySelector("#goal-form");
+const goalFormH = document.querySelector("#goal-form");
 const footMenu = document.querySelector("#foot-menu");
 const lSideMenu = document.querySelector("#l-side-menu-bar");
-// const todoList = document.querySelector("#todo-list");
-
-
-const HIDDEN_CLASSNAME = "hidden";
-const USERNAME_KEY = "username";
 
 
 function paintGreetings(username) {
@@ -17,7 +14,7 @@ function paintGreetings(username) {
 
     const savedGoal = localStorage.getItem("goal");
     if (!savedGoal) {
-        goalForm.classList.remove(HIDDEN_CLASSNAME);
+        goalFormH.classList.remove(HIDDEN_CLASSNAME);
     }
     footMenu.classList.remove(HIDDEN_CLASSNAME);
     lSideMenu.classList.remove(HIDDEN_CLASSNAME);
@@ -52,6 +49,7 @@ function onLoginSubmit(event) {
     paintGreetings(username);
 }
 
+
 const savedUsername = localStorage.getItem(USERNAME_KEY);
 
 if (savedUsername === null) {
@@ -61,3 +59,5 @@ if (savedUsername === null) {
     paintGreetings(savedUsername);
     setInterval(paintGreetings, 3600000, savedUsername);
 }
+
+
