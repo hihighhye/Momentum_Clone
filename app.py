@@ -12,16 +12,24 @@ def home():
         return redirect(url_for("main"))
      ########### dev ###########
     # session.pop("username", default=None)
+    
+    session["restartSession"] = True
     return render_template("index.html")
 
 @app.route("/main", methods=["POST", "GET"])
 def main():
     if request.method == "POST":
-        session["username"] = request.form["username"]  # post 방식
-        return render_template("main.html", uesrname=session["username"])
+        if "username" in session:
+            session["restartSession"] = False
+            return render_template("main.html", session=session)
+        else:
+            session["username"] = request.form["username"]  # post 방식
+            session["restartSession"] = True
+            return render_template("main.html", session=session)
     else:
         if "username" in session:
-            return render_template("main.html", uesrname=session["username"])
+            session["restartSession"] = False
+            return render_template("main.html", session=session)
         else:
             return redirect("/")
     

@@ -19,7 +19,11 @@ const gridFrameElement = document.querySelector(".grid-frame");
 gridFrameElement.style.background = `url(${bgImagePath}) fixed`;
 gridFrameElement.style.backgroundSize = "cover";
 
-
-
+const checkSession = document.querySelector("#check-session");
+resetSession = checkSession.innerText === "True" ? true : false
+if (resetSession) {
+    // console.log("Reset localstorage.")
+    localStorage.clear()
+}
 
 
