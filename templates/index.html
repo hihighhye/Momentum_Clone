@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Momentum - Clone</title>
+</head>
+<body>
+    <div class="grid-frame">
+        <div class="top-left"></div>
+        <div class="top-mid" id="date-container">
+            <span></span>
+        </div>
+        <div class="top-right"></div>
+        <div class="left-side"></div>
+        <div class="main">
+            <form id="login-form" action="/main" method="post" autocomplete="off">
+                <h1 id="login-text-1">Hello, What's your name?</h1>
+                <input type="text" class="blank" id="name-field" name="username" required maxlength="15" />
+                <h4 id="login-text-2">Please let us know how to address you.</h4>
+                <input id="continueBtn" type="submit" value="Continue >" />
+            </form>
+        </div>
+        <div class="bottom">
+        </div>
+        <div class="right-side hidden"></div>
+        <div class="foot"></div>
+    </div>
+    <script src="{{url_for('static', filename='js/background.js')}}"></script>
+    <!-- 
+         <script src="js/login.js"></script> 
+    -->
+</body>
+</html>

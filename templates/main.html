@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <title>Momentum - Clone</title>
 </head>
 <body>
@@ -26,9 +26,9 @@
                         <div class="timer-text" id="sec-text"></div>
                     </div>
                     <div id="t-btn-section">
-                        <button class="btn t-btn" id="t-start-button"><img class="btnIcon t-btnIcon" src="images/play-keep-3.png" alt="start" /></button>
-                        <button class="btn t-btn" id="t-pause-button"><img class="btnIcon t-btnIcon" src="images/pause-keep-3.png" alt="pause" /></button>
-                        <button class="btn t-btn" id="t-stop-button"><img class="btnIcon t-btnIcon" src="images/stop-keep-3.png" alt="stop" /></button>                       
+                        <button class="btn t-btn" id="t-start-button"><img class="btnIcon t-btnIcon" src="{{ url_for('static', filename='images/play-keep-3.png') }}" alt="start" /></button>
+                        <button class="btn t-btn" id="t-pause-button"><img class="btnIcon t-btnIcon" src="{{ url_for('static', filename='images/pause-keep-3.png') }}" alt="pause" /></button>
+                        <button class="btn t-btn" id="t-stop-button"><img class="btnIcon t-btnIcon" src="{{ url_for('static', filename='images//stop-keep-3.png') }}" alt="stop" /></button>                       
                     </div>
                 </div>
             </form>
@@ -47,30 +47,24 @@
             </div>
         </div>
         <div class="left-side">
-            <div class="hidden" id="l-side-menu-bar">
+            <div id="l-side-menu-bar">
                 <div class="side-menu-container" id="pomodoro">
-                    <button class="sideBtn" id="pmdr-button"><img class="sideIcon" src="images/timer-keep.png" alt="pomodoro" /></button>
+                    <button class="sideBtn" id="pmdr-button"><img class="sideIcon" src="{{ url_for('static', filename='images/timer-keep.png') }}" alt="pomodoro" /></button>
                     <span>pomodoro</span>
                 </div>
                 <div class="side-menu-container" id="music">
-                    <button class="sideBtn" id="music-button"><img class="sideIcon" src="images/vinyl.png" alt="music" /></button>
+                    <button class="sideBtn" id="music-button"><img class="sideIcon" src="{{ url_for('static', filename='images/vinyl.png') }}" alt="music" /></button>
                     <span>music</span>
                 </div>
                 <div class="side-menu-container" id="helper">
-                    <button class="sideBtn" id="helper-button"><img class="sideIcon" src="images/saturn.png" alt="helper" /></button>
+                    <button class="sideBtn" id="helper-button"><img class="sideIcon" src="{{ url_for('static', filename='images/saturn.png') }}" alt="helper" /></button>
                     <span>helper</span>
                 </div>
             </div>
         </div>
         <div class="main">
             <h1 id="clock">00:00</h1>
-            <form class="hidden" id="login-form" autocomplete="off">
-                <h1 id="login-text-1">Hello, What's your name?</h1>
-                <input type="text" class="blank" id="name-field" required maxlength="15" />
-                <h4 id="login-text-2">Please let us know how to address you.</h4>
-                <input id="continueBtn" type="submit" value="Continue >" />
-            </form>
-            <div class="hidden" id="greeting"></div>
+            <div id="greeting">{{ session['username'] }}</script></div>
             <form class="hidden" id="goal-form" autocomplete="off">
                 <h2 id="main-goal-text">What is your main goal for today?</h2>
                 <input class="blank" id="main-goal" type="text" required maxlength="50" />
@@ -79,7 +73,7 @@
                 <span id="users-goal-text">TODAY</span>
                 <div id="todays-goal">
                     <span id="users-goal"></span>
-                    <button class="btn" id="delete-button"><img class="btnIcon" id="delBtn-icon" src="images/cancel-button.png" alt="delete-button" /></button>
+                    <button class="btn" id="delete-button"><img class="btnIcon" id="delBtn-icon" src="{{ url_for('static', filename='images/cancel-button.png') }}" alt="delete-button" /></button>
                 </div>
             </div>
         </div>
@@ -99,14 +93,21 @@
             </div>
         </div>
         <div class="foot">
-            <div class="hidden" id="foot-menu">
+            <div id="foot-menu">
                 <div id="foot-menu-container">
-                    <button class="btn" id="tasks-button"><img class="btnIcon" id="tasksBtn-icon" src=images/check-button.png alt="tasks-button" /></button>
+                    <button class="btn" id="tasks-button"><img class="btnIcon" id="tasksBtn-icon" src="{{ url_for('static', filename='images/check-button.png') }}" alt="tasks-button" /></button>
                     <span>Tasks</span>
                 </div>
             </div>
         </div>
     </div>
-    <script type="module" src="js/main.js"></script>
+    <script src="{{ url_for('static', filename='js/background.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/weather.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/greetings.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/maingoal.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/tasks.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/pomodoro.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/quotes.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/clock.js') }}"></script>
 </body>
 </html>
